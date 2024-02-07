@@ -1,0 +1,33 @@
+<div class="wrapper">
+  <div class="images">
+    <img src="../../assets/blossom.png" alt="Blossom" />
+    <img src="../../assets/dragon.png" alt="Dragon" class="dragon" />
+  </div>
+
+  <div class="form">
+    <label for="">Fullname</label>
+    <input type="text" [(ngModel)]="fullName" />
+
+    <button (click)="loginGuest()" [disabled]="isLoading">
+      @if (isLoading) {
+      <ng-icon name="faSolidSpinner"></ng-icon>
+      } Sign In
+    </button>
+  </div>
+
+  <div class="divider">
+    <div class="line"></div>
+    <span>OR</span>
+    <div class="line"></div>
+  </div>
+
+  <button class="google-btn" (click)="loginGoogle()">
+    <ng-icon name="ionLogoGoogle"></ng-icon>
+    Login with Google
+  </button>
+
+  <p>
+    Cannot sign in?
+    <a href="https://hdang09.tech"><strong>Contact us</strong></a>
+  </p>
+</div>

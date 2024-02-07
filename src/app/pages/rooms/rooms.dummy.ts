@@ -1,0 +1,68 @@
+const rooms = [
+  {
+    id: 1,
+    roomName: 'Room 1',
+    joinedPlayers: 2,
+    maximumPlayers: 4,
+    betMoney: 10000,
+    status: 'WAITING',
+  },
+  {
+    id: 2,
+    roomName: 'Room 2',
+    joinedPlayers: 3,
+    maximumPlayers: 4,
+    betMoney: 10000,
+    status: 'WAITING',
+  },
+  {
+    id: 3,
+    roomName: 'Room 3',
+    joinedPlayers: 4,
+    maximumPlayers: 4,
+    betMoney: 10000,
+    status: 'PLAYING',
+  },
+  {
+    id: 4,
+    roomName: 'Room 4',
+    joinedPlayers: 2,
+    maximumPlayers: 4,
+    betMoney: 10000,
+    status: 'WAITING',
+  },
+  {
+    id: 5,
+    roomName: 'Room 5',
+    joinedPlayers: 3,
+    maximumPlayers: 4,
+    betMoney: 10000,
+    status: 'WAITING',
+  },
+  {
+    id: 6,
+    roomName: 'Room 6',
+    joinedPlayers: 4,
+    maximumPlayers: 4,
+    betMoney: 10000,
+    status: 'PLAYING',
+  },
+  {
+    id: 7,
+    roomName: 'Room 7',
+    joinedPlayers: 2,
+    maximumPlayers: 4,
+    betMoney: 10000,
+    status: 'WAITING',
+  },
+  {
+    id: 8,
+    roomName: 'Room 8',
+    joinedPlayers: 3,
+    maximumPlayers: 4,
+    betMoney: 10000,
+    status: 'WAITING',
+  },
+];
+
+export default rooms;

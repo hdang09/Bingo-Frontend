@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <h2>All Drawn Numbers</h2>
+
+  <div class="numbers">
+    @for (number of drawnNumbers; track number) {
+    <span class="number">{{ number }}</span>
+    }
+  </div>
+
+  <button [routerLink]="bingoRoute">Back to room</button>
+</div>

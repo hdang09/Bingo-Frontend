@@ -1,0 +1,75 @@
+@keyframes loadingCircle {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.wrapper {
+  padding: 50px;
+}
+
+button.roomName {
+  background-color: var(--secondary-color);
+  color: var(--third-color);
+  cursor: default;
+}
+
+.players {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 20px 0;
+
+  .player {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+    margin: 20px;
+    max-width: 50px;
+
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    p {
+      margin-top: 6px;
+      font-size: 1.2rem;
+      display: -webkit-box;
+      -webkit-line-clamp: var(--line-clamp, 1);
+      -webkit-box-orient: vertical;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}
+
+.btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  button.leave {
+    background-color: var(--secondary-color);
+    color: var(--third-color);
+  }
+
+  button.start {
+    background-color: var(--third-color);
+    color: var(--secondary-color);
+  }
+
+  button + button {
+    margin-left: 20px;
+  }
+
+  ng-icon {
+    font-size: 1.4rem;
+    animation: loadingCircle 1s infinite linear;
+    margin-right: 4px;
+  }
+}

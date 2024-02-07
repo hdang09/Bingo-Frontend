@@ -1,0 +1,87 @@
+<div class="form-wrapper">
+  <h1 class="title">Create Room</h1>
+
+  <form action="">
+    <div class="form-group">
+      <label for="roomName">Room Name</label>
+      <input
+        type="text"
+        id="roomName"
+        class="form-control"
+        [(ngModel)]="roomName"
+        name="roomName"
+        name="roomName"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="betMoney">Bet</label>
+      <input
+        type="number"
+        id="betMoney"
+        class="form-control"
+        [(ngModel)]="betMoney"
+        name="betMoney"
+        name="betMoney"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="slot">Slot</label>
+      <input
+        type="number"
+        id="slot"
+        class="form-control"
+        [(ngModel)]="slot"
+        name="slot"
+        name="slot"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="width">Width</label>
+      <input
+        type="number"
+        id="width"
+        class="form-control"
+        [(ngModel)]="width"
+        name="width"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="height">Height</label>
+      <input
+        type="number"
+        id="height"
+        class="form-control"
+        [(ngModel)]="height"
+        name="height"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="maxNumberEachRow">Max Number Each Row</label>
+      <input
+        type="number"
+        id="maxNumberEachRow"
+        class="form-control"
+        [(ngModel)]="maxNumberEachRow"
+        name="maxNumberEachRow"
+      />
+    </div>
+
+    <button
+      class="btn btn-primary"
+      (click)="createRoom()"
+      [disabled]="isLoading"
+    >
+      @if (isLoading) {
+      <ng-icon name="faSolidSpinner"></ng-icon>
+      } Create Room
+    </button>
+  </form>
+</div>

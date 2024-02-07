@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <button class="roomName">{{ room.roomName }}</button>
+
+  <div class="players">
+    @for (player of room.players; track player.playerId) {
+    <div class="player">
+      <img
+        src="{{ player.avatarUrl }}"
+        alt="{{ player.fullName }}"
+        class="avatar"
+      />
+      <p>{{ player.fullName }}</p>
+    </div>
+    }
+  </div>
+
+  <div class="btn-wrapper">
+    <button class="leave" (click)="leaveRoom()" [disabled]="isLoadingLeaveBtn">
+      @if (isLoadingLeaveBtn) { <ng-icon name="faSolidSpinner"></ng-icon> }
+      Leave
+    </button>
+    <button class="start" (click)="startRoom()" [disabled]="isLoadingStartBtn">
+      @if (isLoadingStartBtn) { <ng-icon name="faSolidSpinner"></ng-icon> }Start
+    </button>
+  </div>
+</div>

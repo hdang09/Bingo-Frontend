@@ -1,0 +1,46 @@
+<table class="rooms">
+  <thead>
+    <tr>
+      <th>Room Name</th>
+      <th>Slot</th>
+      <th>Bet</th>
+    </tr>
+  </thead>
+  <tbody>
+    @if (rooms.length > 0) { @for (room of rooms; track room.roomId) {
+    <tr (click)="joinRoom(room.roomId)">
+      <td>
+        <span class="roomName">
+          {{ room.roomName }}
+          @if (room.status === 'PLAYING') { (*)}
+        </span>
+      </td>
+      <td>{{ room.joinedPlayers }}/{{ room.maximumPlayers }}</td>
+      <td>
+        {{ room.betMoney }}
+      </td>
+    </tr>
+    } } @else {
+    <tr>
+      <td colspan="3">No available room</td>
+    </tr>
+    }
+  </tbody>
+</table>
+
+<div class="control">
+  <div class="status">
+    <span class="color"></span>
+    <span class="name">Busy</span>
+  </div>
+  <div class="pagination">
+    <
+    <span class="page">1</span>
+    <span class="page">2</span>
+    >
+  </div>
+</div>
+
+<div class="btn-wrapper">
+  <button [routerLink]="createRoute">Create Room</button>
+</div>

@@ -1,0 +1,16 @@
+<header>
+  <div class="left-content">
+    @if (isInBingoRoom) {
+    <button (click)="leaveRoom()">Leave</button>
+    } @else {
+    <button (click)="logOut()">Logout</button>
+    }
+  </div>
+
+  <div class="account">
+    <span class="fullname">{{ info.fullName }}</span>
+    <img src="{{ info.avatarUrl }}" alt="{{ info.fullName }}" class="avatar" />
+  </div>
+</header>
+
+<router-outlet></router-outlet>

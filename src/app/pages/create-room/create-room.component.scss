@@ -1,0 +1,48 @@
+@keyframes loadingCircle {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.form-wrapper {
+  margin: 50px;
+  background-color: var(--white-color);
+  color: var(--primary-color);
+  padding: 20px 28px 24px;
+  border-radius: 10px;
+}
+
+.title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+form {
+  .form-group {
+    margin-bottom: 20px;
+
+    label {
+      display: block;
+    }
+
+    input {
+      border: 1px solid #d0d0d0;
+      width: 100%;
+      border-radius: 6px;
+      height: 32px;
+      padding: 0 10px;
+    }
+  }
+
+  button {
+    margin-top: 40px;
+    background-color: var(--third-color);
+    color: var(--secondary-color);
+  }
+
+  ng-icon {
+    font-size: 1.4rem;
+    animation: loadingCircle 1s infinite linear;
+  }
+}

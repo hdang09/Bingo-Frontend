@@ -1,0 +1,94 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "ngx-toastr/toastr";
+
+:root {
+  --primary-color: #bf3131;
+  --secondary-color: #ead196;
+  --third-color: #7d0a0a;
+  --forth-color: #f3edc8;
+
+  --white-color: #ffffff;
+  --black-color: #000000;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Inter", "SVN-Poppins", Arial, Helvetica, sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.5;
+
+  overflow: unset;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+border,
+input,
+[tabindex] {
+  outline: none;
+  border: none;
+}
+
+button {
+  font-size: 1em;
+  border: none;
+}
+
+ul li a {
+  text-decoration: none;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  border-radius: 0;
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* Selection */
+::selection {
+  color: var(--white-color);
+  background: var(--secondary-color);
+}
+
+// Custom styles
+button {
+  width: 100%;
+  height: 48px;
+
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+button:disabled {
+  opacity: 0.8;
+  cursor: default;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
