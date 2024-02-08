@@ -1,0 +1,41 @@
+{
+  "login": {
+    "fullName": "Tên của bạn",
+    "signIn": "Đăng nhập",
+    "loginGoogle": "Đăng nhập bằng Google",
+    "cannotSignIn": "Không thể đăng nhập",
+    "contactUs": "Liên hệ với chúng tôi"
+  },
+  "rooms": {
+    "roomName": "Tên phòng",
+    "slot": "Người chơi",
+    "bet": "Cược",
+    "busy": "Bận rộn",
+    "noAvailableRoom": "Không có phòng trống",
+    "createRoom": "Tạo phòng"
+  },
+  "waitingRoom": {
+    "leave": "Rời khỏi",
+    "start": "Bắt đầu"
+  },
+  "drawn": {
+    "allDrawnNumber": "Tất cả số đã gọi",
+    "back": "Quay lại phòng"
+  },
+  "create": {
+    "createRoom": "Tạo phòng",
+    "roomName": "Tên phòng",
+    "bet": "Cược",
+    "slot": "Người chơi",
+    "width": "Chiều rộng",
+    "height": "Chiều cao",
+    "maxNumberEachRow": "Số tối đa mỗi hàng"
+  },
+  "bingo": {
+    "allDrawnNumber": "Tất cả số đã gọi"
+  },
+  "layout": {
+    "leave": "Rời",
+    "logout": "Đ.xuất"
+  }
+}

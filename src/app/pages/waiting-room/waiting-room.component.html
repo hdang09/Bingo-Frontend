@@ -17,10 +17,11 @@
   <div class="btn-wrapper">
     <button class="leave" (click)="leaveRoom()" [disabled]="isLoadingLeaveBtn">
       @if (isLoadingLeaveBtn) { <ng-icon name="faSolidSpinner"></ng-icon> }
-      Leave
+      {{ "waitingRoom.leave" | translate }}
     </button>
     <button class="start" (click)="startRoom()" [disabled]="isLoadingStartBtn">
-      @if (isLoadingStartBtn) { <ng-icon name="faSolidSpinner"></ng-icon> }Start
+      @if (isLoadingStartBtn) { <ng-icon name="faSolidSpinner"></ng-icon> }
+      {{ "waitingRoom.start" | translate }}
     </button>
   </div>
 </div>

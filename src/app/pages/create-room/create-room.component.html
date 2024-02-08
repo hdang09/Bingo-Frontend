@@ -1,9 +1,9 @@
 <div class="form-wrapper">
-  <h1 class="title">Create Room</h1>
+  <h1 class="title">{{ "create.createRoom" | translate }}</h1>
 
   <form action="">
     <div class="form-group">
-      <label for="roomName">Room Name</label>
+      <label for="roomName">{{ "create.roomName" | translate }}</label>
       <input
         type="text"
         id="roomName"
@@ -16,7 +16,7 @@
     </div>
 
     <div class="form-group">
-      <label for="betMoney">Bet</label>
+      <label for="betMoney">{{ "create.bet" | translate }}</label>
       <input
         type="number"
         id="betMoney"
@@ -29,7 +29,7 @@
     </div>
 
     <div class="form-group">
-      <label for="slot">Slot</label>
+      <label for="slot">{{ "create.slot" | translate }}</label>
       <input
         type="number"
         id="slot"
@@ -42,7 +42,7 @@
     </div>
 
     <div class="form-group">
-      <label for="width">Width</label>
+      <label for="width">{{ "create.width" | translate }}</label>
       <input
         type="number"
         id="width"
@@ -53,7 +53,7 @@
     </div>
 
     <div class="form-group">
-      <label for="height">Height</label>
+      <label for="height">{{ "create.height" | translate }}</label>
       <input
         type="number"
         id="height"
@@ -64,7 +64,9 @@
     </div>
 
     <div class="form-group">
-      <label for="maxNumberEachRow">Max Number Each Row</label>
+      <label for="maxNumberEachRow">{{
+        "create.maxNumberEachRow" | translate
+      }}</label>
       <input
         type="number"
         id="maxNumberEachRow"
@@ -81,7 +83,8 @@
     >
       @if (isLoading) {
       <ng-icon name="faSolidSpinner"></ng-icon>
-      } Create Room
+      }
+      {{ "create.createRoom" | translate }}
     </button>
   </form>
 </div>

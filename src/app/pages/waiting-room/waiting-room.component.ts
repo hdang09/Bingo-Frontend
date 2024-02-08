@@ -9,11 +9,12 @@ import { Stomp } from '@stomp/stompjs';
 import { environment } from '../../../environment/environment';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-waiting-room',
   standalone: true,
-  imports: [RouterLink, NgIconComponent],
+  imports: [RouterLink, NgIconComponent, TranslateModule],
   templateUrl: './waiting-room.component.html',
   styleUrl: './waiting-room.component.scss',
   viewProviders: [provideIcons({ faSolidSpinner })],
@@ -27,8 +28,12 @@ export class WaitingRoomComponent implements OnInit {
   constructor(
     private roomService: RoomService,
     private router: Router,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    public translate: TranslateService
+  ) {
+    this.translate.addLangs(config.langs);
+    this.translate.setDefaultLang(environment.defaultLang);
+  }
 
   ngOnInit() {
     this.roomService.getPlayers().subscribe({

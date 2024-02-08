@@ -1,9 +1,9 @@
 <header>
   <div class="left-content">
     @if (isInBingoRoom) {
-    <button (click)="leaveRoom()">Leave</button>
+    <button (click)="leaveRoom()">{{ "layout.leave" | translate }}</button>
     } @else {
-    <button (click)="logOut()">Logout</button>
+    <button (click)="logOut()">{{ "layout.logout" | translate }}</button>
     }
   </div>
 

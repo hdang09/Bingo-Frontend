@@ -1,0 +1,41 @@
+{
+  "login": {
+    "fullName": "フルネーム",
+    "signIn": "サインイン",
+    "loginGoogle": "Googleでログイン",
+    "cannotSignIn": "サインインできません",
+    "contactUs": "お問い合わせ"
+  },
+  "rooms": {
+    "roomName": "部屋名",
+    "slot": "スロット",
+    "bet": "ベット",
+    "busy": "ビジー",
+    "noAvailableRoom": "利用可能な部屋はありません",
+    "createRoom": "部屋を作成"
+  },
+  "waitingRoom": {
+    "leave": "退出",
+    "start": "開始"
+  },
+  "drawn": {
+    "allDrawnNumber": "すべての抽選番号",
+    "back": "部屋に戻る"
+  },
+  "create": {
+    "createRoom": "部屋を作成",
+    "roomName": "部屋名",
+    "bet": "ベット",
+    "slot": "スロット",
+    "width": "幅",
+    "height": "高さ",
+    "maxNumberEachRow": "各行の最大数"
+  },
+  "bingo": {
+    "allDrawnNumber": "すべての抽選番号"
+  },
+  "layout": {
+    "leave": "退出",
+    "logout": "ログアウト"
+  }
+}

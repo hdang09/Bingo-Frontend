@@ -6,11 +6,13 @@ import { Router } from '@angular/router';
 import config from '../../config';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-create-room',
   standalone: true,
-  imports: [FormsModule, NgIconComponent],
+  imports: [FormsModule, NgIconComponent, TranslateModule],
   templateUrl: './create-room.component.html',
   styleUrl: './create-room.component.scss',
   viewProviders: [provideIcons({ faSolidSpinner })],
@@ -27,8 +29,12 @@ export class CreateRoomComponent {
   constructor(
     private roomService: RoomService,
     private router: Router,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    public translate: TranslateService
+  ) {
+    this.translate.addLangs(config.langs);
+    this.translate.setDefaultLang(environment.defaultLang);
+  }
 
   createRoom() {
     this.isLoading = true;

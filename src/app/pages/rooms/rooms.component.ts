@@ -7,11 +7,12 @@ import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import { environment } from '../../../environment/environment';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslateModule],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
 })
@@ -24,8 +25,12 @@ export class RoomsComponent implements OnInit {
   constructor(
     private roomService: RoomService,
     private router: Router,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    public translate: TranslateService
+  ) {
+    this.translate.addLangs(config.langs);
+    this.translate.setDefaultLang(environment.defaultLang);
+  }
 
   ngOnInit() {
     this.roomService.getAllRoom().subscribe((response) => {

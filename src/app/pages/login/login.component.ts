@@ -9,11 +9,12 @@ import { AuthService } from '../../services/auth/auth.service';
 import { CreateAccount } from '../../types';
 import { environment } from '../../../environment/environment';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink, NgIconComponent, FormsModule],
+  imports: [RouterLink, NgIconComponent, FormsModule, TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   viewProviders: [provideIcons({ ionLogoGoogle, faSolidSpinner })],
@@ -25,12 +26,17 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    public translate: TranslateService
+  ) {
+    this.translate.addLangs(config.langs);
+    this.translate.setDefaultLang(environment.defaultLang);
+  }
 
   ngOnInit(): void {
     // Check token in local storage
     const token = localStorage.getItem('token');
+
     if (token) {
       this.router.navigate([config.routes.rooms]);
     } else {

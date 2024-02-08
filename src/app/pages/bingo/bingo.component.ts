@@ -6,11 +6,12 @@ import SockJS from 'sockjs-client';
 import { environment } from '../../../environment/environment';
 import { Stomp } from '@stomp/stompjs';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-bingo',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, TranslateModule],
   templateUrl: './bingo.component.html',
   styleUrl: './bingo.component.scss',
 })
@@ -24,8 +25,12 @@ export class BingoComponent {
   constructor(
     private boardService: BoardService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public translate: TranslateService
   ) {
+    this.translate.addLangs(config.langs);
+    this.translate.setDefaultLang(environment.defaultLang);
+
     this.boardService.getBoard().subscribe({
       next: (response) => {
         this.board = response.data;

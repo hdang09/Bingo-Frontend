@@ -1,9 +1,9 @@
 <table class="rooms">
   <thead>
     <tr>
-      <th>Room Name</th>
-      <th>Slot</th>
-      <th>Bet</th>
+      <th>{{ "rooms.roomName" | translate }}</th>
+      <th>{{ "rooms.slot" | translate }}</th>
+      <th>{{ "rooms.bet" | translate }}</th>
     </tr>
   </thead>
   <tbody>
@@ -22,7 +22,7 @@
     </tr>
     } } @else {
     <tr>
-      <td colspan="3">No available room</td>
+      <td colspan="3">{{ "rooms.noAvailableRoom" | translate }}</td>
     </tr>
     }
   </tbody>
@@ -31,7 +31,7 @@
 <div class="control">
   <div class="status">
     <span class="color"></span>
-    <span class="name">Busy</span>
+    <span class="name">{{ "rooms.busy" | translate }}</span>
   </div>
   <div class="pagination">
     <
@@ -42,5 +42,7 @@
 </div>
 
 <div class="btn-wrapper">
-  <button [routerLink]="createRoute">Create Room</button>
+  <button [routerLink]="createRoute">
+    {{ "rooms.createRoom" | translate }}
+  </button>
 </div>

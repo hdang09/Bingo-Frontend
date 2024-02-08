@@ -1,0 +1,41 @@
+{
+  "login": {
+    "fullName": "Fullname",
+    "signIn": "Sign In",
+    "loginGoogle": "Login with Google",
+    "cannotSignIn": "Cannot sign in",
+    "contactUs": "Contact us"
+  },
+  "rooms": {
+    "roomName": "Room Name",
+    "slot": "Slot",
+    "bet": "Bet",
+    "busy": "Busy",
+    "noAvailableRoom": "No available room",
+    "createRoom": "Create Room"
+  },
+  "waitingRoom": {
+    "leave": "Leave",
+    "start": "Start"
+  },
+  "drawn": {
+    "allDrawnNumber": "All Drawn Numbers",
+    "back": "Back to room"
+  },
+  "create": {
+    "createRoom": "Create Room",
+    "roomName": "Room Name",
+    "bet": "Bet",
+    "slot": "Slot",
+    "width": "Width",
+    "height": "Height",
+    "maxNumberEachRow": "Max Number Each Row"
+  },
+  "bingo": {
+    "allDrawnNumber": "All Drawn Numbers"
+  },
+  "layout": {
+    "leave": "Leave",
+    "logout": "Logout"
+  }
+}

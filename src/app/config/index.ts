@@ -8,8 +8,11 @@ const routes = {
   drawn: '/drawn',
 };
 
+const langs = ['en', 'vi', 'jp', 'ko'];
+
 const config = {
   routes,
+  langs,
 };
 
 export default config;

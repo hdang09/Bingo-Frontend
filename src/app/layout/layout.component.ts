@@ -5,11 +5,13 @@ import { PlayerService } from '../services/player/player.service';
 import config from '../config';
 import { RoomService } from '../services/room/room.service';
 import { ToastrService } from 'ngx-toastr';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { environment } from '../../environment/environment';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, TranslateModule],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
@@ -22,8 +24,12 @@ export class LayoutComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private roomService: RoomService,
-    private toastr: ToastrService
-  ) {}
+    private toastr: ToastrService,
+    public translate: TranslateService
+  ) {
+    this.translate.addLangs(config.langs);
+    this.translate.setDefaultLang(environment.defaultLang);
+  }
 
   ngOnInit(): void {
     // Check token in URL when login with Google
