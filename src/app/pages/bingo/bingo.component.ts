@@ -28,8 +28,8 @@ export class BingoComponent {
     private toastr: ToastrService,
     public translate: TranslateService
   ) {
-    this.translate.addLangs(config.langs);
-    this.translate.setDefaultLang(environment.defaultLang);
+    this.translate.addLangs(Object.keys(config.langs));
+    this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
 
     this.boardService.getBoard().subscribe({
       next: (response) => {

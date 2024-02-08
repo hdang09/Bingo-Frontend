@@ -32,4 +32,15 @@
       ><strong>{{ "login.contactUs" | translate }}</strong></a
     >
   </p>
+
+  <div class="langs">
+    @for (lang of langs; track lang ) {
+    <img
+      class="lang"
+      src="../../../assets/langs/{{ lang }}.png"
+      (click)="changeLang(lang)"
+      alt="{{ lang }}"
+    />
+    }
+  </div>
 </div>

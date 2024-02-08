@@ -20,8 +20,8 @@ export class DrawnComponent {
     private boardService: BoardService,
     public translate: TranslateService
   ) {
-    this.translate.addLangs(config.langs);
-    this.translate.setDefaultLang(environment.defaultLang);
+    this.translate.addLangs(Object.keys(config.langs));
+    this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
 
     this.boardService.getAllSystemDrawnNumber().subscribe((response) => {
       this.drawnNumbers = response.data;

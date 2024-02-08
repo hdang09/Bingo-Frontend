@@ -8,7 +8,12 @@ const routes = {
   drawn: '/drawn',
 };
 
-const langs = ['en', 'vi', 'jp', 'ko'];
+const langs = {
+  en: 'English',
+  vi: 'Vietnamese',
+  ja: 'Japanese',
+  ko: 'Korean',
+};
 
 const config = {
   routes,

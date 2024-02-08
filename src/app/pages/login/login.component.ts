@@ -22,6 +22,8 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 export class LoginComponent implements OnInit {
   fullName = '';
   isLoading = false;
+  langs = Object.keys(config.langs);
+  defaultLang = localStorage.getItem('defaultLang') || 'en';
 
   constructor(
     private authService: AuthService,
@@ -29,8 +31,8 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     public translate: TranslateService
   ) {
-    this.translate.addLangs(config.langs);
-    this.translate.setDefaultLang(environment.defaultLang);
+    this.translate.addLangs(Object.keys(config.langs));
+    this.translate.setDefaultLang(this.defaultLang);
   }
 
   ngOnInit(): void {
@@ -65,5 +67,11 @@ export class LoginComponent implements OnInit {
 
   loginGoogle() {
     window.location.href = environment.apiUrl + '/api/v1/auth/login/google';
+  }
+
+  changeLang(lang: string) {
+    localStorage.setItem('defaultLang', lang);
+    this.defaultLang = lang;
+    this.translate.use(lang);
   }
 }

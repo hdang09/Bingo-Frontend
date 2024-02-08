@@ -27,8 +27,8 @@ export class LayoutComponent implements OnInit {
     private toastr: ToastrService,
     public translate: TranslateService
   ) {
-    this.translate.addLangs(config.langs);
-    this.translate.setDefaultLang(environment.defaultLang);
+    this.translate.addLangs(Object.keys(config.langs));
+    this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
   }
 
   ngOnInit(): void {
