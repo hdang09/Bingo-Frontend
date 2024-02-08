@@ -56,28 +56,32 @@ export class LayoutComponent implements OnInit {
 
       // Check if user is in bingo room
       const currentRoom = response.data.currentRoom;
-      if (currentRoom != null) {
-        if (currentRoom.status === 'PLAYING') {
-          this.router.navigate([config.routes.bingo]);
-        }
+
+      if (currentRoom === null) return;
+
+      if (currentRoom.status === 'PLAYING') {
+        this.isInBingoRoom = true;
+        this.router.navigate([config.routes.bingo]);
+      } else {
         this.router.navigate([config.routes.waiting]);
       }
     });
 
     // Check if user is in bingo room
-    this.isInBingoRoom = this.router.url === config.routes.bingo;
+    const bingoRooms = [config.routes.bingo, config.routes.drawn];
+    this.isInBingoRoom = bingoRooms.includes(this.router.url);
   }
 
   leaveRoom() {
-    this.roomService.leaveRoom().subscribe(
-      () => {
+    this.roomService.leaveRoom().subscribe({
+      next: () => {
         this.isInBingoRoom = false;
         this.router.navigate([config.routes.rooms]);
       },
-      (error) => {
+      error: (error) => {
         this.toastr.error(error.error.message);
-      }
-    );
+      },
+    });
   }
 
   logOut() {

@@ -7,7 +7,6 @@ import config from '../../config';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-create-room',

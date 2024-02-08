@@ -22,6 +22,11 @@ table.rooms {
 
   tr {
     height: 55px;
+
+    &.playing-room {
+      background-color: var(--secondary-color);
+      color: var(--third-color);
+    }
   }
 
   span.roomName {

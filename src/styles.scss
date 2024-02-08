@@ -4,7 +4,55 @@
 
 @font-face {
   font-family: "NotoSans";
+  src: url("./assets/fonts/NotoSans/NotoSans-Black.ttf");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("./assets/fonts/NotoSans/NotoSans-Bold.ttf");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("./assets/fonts/NotoSans/NotoSans-ExtraBold.ttf");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("./assets/fonts/NotoSans/NotoSans-ExtraLight.ttf");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("./assets/fonts/NotoSans/NotoSans-Italic.ttf");
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("./assets/fonts/NotoSans/NotoSans-Medium.ttf");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "NotoSans";
   src: url("./assets/fonts/NotoSans/NotoSans-Regular.ttf");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("./assets/fonts/NotoSans/NotoSans-SemiBold.ttf");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "NotoSans";
+  src: url("./assets/fonts/NotoSans/NotoSans-Thin.ttf");
+  font-weight: 100;
 }
 
 :root {

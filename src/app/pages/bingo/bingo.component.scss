@@ -43,5 +43,10 @@
     background-color: var(--third-color);
     border: 1px solid var(--white-color);
     cursor: pointer;
+
+    &.called {
+      background-color: var(--secondary-color);
+      color: var(--third-color);
+    }
   }
 }

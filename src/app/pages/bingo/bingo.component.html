@@ -13,9 +13,10 @@
     @for (row of board; track row) {
     <div>
       @for (number of row; track number) {
-      <span class="number" (click)="drawn(number)"
+      <span
+        class="number {{ myDrawnNumber.includes(number) ? 'called' : '' }}"
+        (click)="drawn(number)"
         >{{ number !== 0 ? number : "&nbsp;" }}
-        {{ myDrawnNumber.includes(number) ? "*" : "" }}
       </span>
       }
     </div>

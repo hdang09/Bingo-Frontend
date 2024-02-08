@@ -8,11 +8,13 @@
   </thead>
   <tbody>
     @if (rooms.length > 0) { @for (room of rooms; track room.roomId) {
-    <tr (click)="joinRoom(room.roomId)">
+    <tr
+      (click)="joinRoom(room.roomId)"
+      class="{{ room.status === 'PLAYING' ? 'playing-room' : '' }}"
+    >
       <td>
-        <span class="roomName">
+        <span class="roomName {{ room.status === 'PLAYING' ? 'playing' : '' }}">
           {{ room.roomName }}
-          @if (room.status === 'PLAYING') { (*)}
         </span>
       </td>
       <td>{{ room.joinedPlayers }}/{{ room.maximumPlayers }}</td>
@@ -33,12 +35,12 @@
     <span class="color"></span>
     <span class="name">{{ "rooms.busy" | translate }}</span>
   </div>
-  <div class="pagination">
+  <!-- <div class="pagination">
     <
     <span class="page">1</span>
     <span class="page">2</span>
     >
-  </div>
+  </div> -->
 </div>
 
 <div class="btn-wrapper">

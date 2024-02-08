@@ -56,6 +56,14 @@ export class BingoComponent {
         this.drawnNumber = JSON.parse(message.body);
       });
     });
+
+    this.stompClient.connect({}, () => {
+      const roomId = localStorage.getItem('roomId');
+
+      this.stompClient.subscribe(`/topic/win/${roomId}`, (message: any) => {
+        toastr.info(message.body);
+      });
+    });
   }
 
   callNumber() {
