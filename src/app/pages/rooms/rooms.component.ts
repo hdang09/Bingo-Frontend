@@ -43,6 +43,10 @@ export class RoomsComponent implements OnInit {
     this.stompClient.connect({}, () => {
       this.stompClient.subscribe('/topic/rooms', (message: any) => {
         this.rooms = JSON.parse(message.body);
+
+        setTimeout(() => {
+          this.router.navigate([config.routes.rooms]);
+        }, 5000);
       });
     });
   }
