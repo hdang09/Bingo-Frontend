@@ -8,13 +8,16 @@ import { Stomp } from '@stomp/stompjs';
 import { environment } from '../../../environment/environment';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { faSolidSpinner } from '@ng-icons/font-awesome/solid';
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [RouterLink, TranslateModule, NgIconComponent],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
+  viewProviders: [provideIcons({ faSolidSpinner })],
 })
 export class RoomsComponent implements OnInit {
   rooms: Room[] = [];

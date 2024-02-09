@@ -46,12 +46,8 @@ export class CreateRoomComponent {
       maxNumberEachRow: this.maxNumberEachRow,
     };
 
-    console.log(room);
-
     this.roomService.createRoom(room).subscribe({
       next: (response) => {
-        console.log(response);
-
         this.isLoading = false;
 
         localStorage.setItem('roomId', response.data.roomId);
