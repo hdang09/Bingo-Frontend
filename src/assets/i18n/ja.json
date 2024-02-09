@@ -2,6 +2,7 @@
   "login": {
     "fullName": "フルネーム",
     "signIn": "サインイン",
+    "or": "または",
     "loginGoogle": "Googleでログイン",
     "cannotSignIn": "サインインできません",
     "contactUs": "お問い合わせ"

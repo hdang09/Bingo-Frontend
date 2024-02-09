@@ -2,6 +2,7 @@
   "login": {
     "fullName": "Fullname",
     "signIn": "Sign In",
+    "or": "OR",
     "loginGoogle": "Login with Google",
     "cannotSignIn": "Cannot sign in",
     "contactUs": "Contact us"
@@ -10,7 +11,7 @@
     "roomName": "Room Name",
     "slot": "Slot",
     "bet": "Bet",
-    "busy": "Busy",
+    "busy": "Playing Room",
     "noAvailableRoom": "No available room",
     "createRoom": "Create Room"
   },

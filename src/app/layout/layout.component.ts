@@ -6,7 +6,6 @@ import config from '../config';
 import { RoomService } from '../services/room/room.service';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { environment } from '../../environment/environment';
 
 @Component({
   selector: 'app-layout',
@@ -52,6 +51,11 @@ export class LayoutComponent implements OnInit {
 
     // Get player info
     this.playerService.getMyInfo().subscribe((response) => {
+      // Player not found
+      if (response.data === null) {
+        this.router.navigate([config.routes.login]);
+      }
+
       this.info = response.data;
 
       // Check if user is in bingo room
@@ -61,6 +65,7 @@ export class LayoutComponent implements OnInit {
 
       if (currentRoom.status === 'PLAYING') {
         this.isInBingoRoom = true;
+
         this.router.navigate([config.routes.bingo]);
       } else {
         this.router.navigate([config.routes.waiting]);

@@ -21,6 +21,7 @@ export class RoomsComponent implements OnInit {
   waitingRoute = config.routes.waiting;
   createRoute = config.routes.create;
   stompClient: any;
+  joiningRoomId: string = '';
 
   constructor(
     private roomService: RoomService,
@@ -43,10 +44,6 @@ export class RoomsComponent implements OnInit {
     this.stompClient.connect({}, () => {
       this.stompClient.subscribe('/topic/rooms', (message: any) => {
         this.rooms = JSON.parse(message.body);
-
-        setTimeout(() => {
-          this.router.navigate([config.routes.rooms]);
-        }, 5000);
       });
     });
   }
@@ -56,6 +53,7 @@ export class RoomsComponent implements OnInit {
       next: (response) => {
         if (response.status === 'SUCCESS') {
           localStorage.setItem('roomId', roomId);
+          this.joiningRoomId = roomId;
           this.router.navigate([config.routes.waiting]);
         }
       },

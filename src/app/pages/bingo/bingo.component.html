@@ -5,7 +5,11 @@
     </button>
 
     <button class="call-btn" (click)="callNumber()">
-      {{ drawnNumber === 0 ? "Call" : drawnNumber }}
+      @if (drawnNumber === 0) {
+      <ng-icon name="faSolidCirclePlay"></ng-icon>
+      } @else {
+      {{ drawnNumber }}
+      }
     </button>
   </div>
 

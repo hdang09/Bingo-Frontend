@@ -77,7 +77,7 @@ export class WaitingRoomComponent implements OnInit {
       },
       error: (error) => {
         this.isLoadingLeaveBtn = false;
-        this.toastr.error;
+        this.toastr.error(error.error.message);
       },
     });
   }
@@ -91,7 +91,7 @@ export class WaitingRoomComponent implements OnInit {
       },
       error: (error) => {
         this.isLoadingStartBtn = false;
-        this.toastr.error;
+        this.toastr.error(error.error.message);
       },
     });
   }

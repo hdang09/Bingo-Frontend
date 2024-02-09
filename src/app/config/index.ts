@@ -1,5 +1,6 @@
 const routes = {
   login: '/login',
+  loginGoogle: '/api/v1/auth/login/google',
   home: '/',
   rooms: '/rooms',
   waiting: '/waiting',

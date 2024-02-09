@@ -48,6 +48,7 @@ export class LoginComponent implements OnInit {
 
   loginGuest() {
     this.isLoading = true;
+
     const account: CreateAccount = {
       fullName: this.fullName,
     };
@@ -59,8 +60,11 @@ export class LoginComponent implements OnInit {
         this.router.navigate([config.routes.rooms]);
       },
       (error) => {
-        this.toastr.error(error.error.message);
-        this.toastr.error(error.error.message);
+        this.isLoading = false;
+
+        Object.values(error.error.data).forEach((message: any) => {
+          this.toastr.error(message);
+        });
       }
     );
   }

@@ -12,55 +12,64 @@
         name="roomName"
         name="roomName"
         required
+        placeholder="Room 1"
       />
     </div>
 
-    <div class="form-group">
-      <label for="betMoney">{{ "create.bet" | translate }}</label>
-      <input
-        type="number"
-        id="betMoney"
-        class="form-control"
-        [(ngModel)]="betMoney"
-        name="betMoney"
-        name="betMoney"
-        required
-      />
+    <div class="form-2-group">
+      <div class="form-group">
+        <label for="betMoney">{{ "create.bet" | translate }}</label>
+        <input
+          type="number"
+          id="betMoney"
+          class="form-control"
+          [(ngModel)]="betMoney"
+          name="betMoney"
+          name="betMoney"
+          placeholder="10000"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="numberOfPlayers">{{ "create.slot" | translate }}</label>
+        <input
+          type="number"
+          id="numberOfPlayers"
+          class="form-control"
+          [(ngModel)]="numberOfPlayers"
+          name="numberOfPlayers"
+          name="numberOfPlayers"
+          placeholder="10"
+          required
+        />
+      </div>
     </div>
 
-    <div class="form-group">
-      <label for="slot">{{ "create.slot" | translate }}</label>
-      <input
-        type="number"
-        id="slot"
-        class="form-control"
-        [(ngModel)]="slot"
-        name="slot"
-        name="slot"
-        required
-      />
-    </div>
+    <div class="form-2-group">
+      <div class="form-group">
+        <label for="width">{{ "create.width" | translate }}</label>
+        <input
+          type="number"
+          id="width"
+          class="form-control"
+          [(ngModel)]="width"
+          name="width"
+          placeholder="6"
+        />
+      </div>
 
-    <div class="form-group">
-      <label for="width">{{ "create.width" | translate }}</label>
-      <input
-        type="number"
-        id="width"
-        class="form-control"
-        [(ngModel)]="width"
-        name="width"
-      />
-    </div>
-
-    <div class="form-group">
-      <label for="height">{{ "create.height" | translate }}</label>
-      <input
-        type="number"
-        id="height"
-        class="form-control"
-        [(ngModel)]="height"
-        name="height"
-      />
+      <div class="form-group">
+        <label for="height">{{ "create.height" | translate }}</label>
+        <input
+          type="number"
+          id="height"
+          class="form-control"
+          [(ngModel)]="height"
+          name="height"
+          placeholder="9"
+        />
+      </div>
     </div>
 
     <div class="form-group">
@@ -73,6 +82,7 @@
         class="form-control"
         [(ngModel)]="maxNumberEachRow"
         name="maxNumberEachRow"
+        placeholder="4"
       />
     </div>
 

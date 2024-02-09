@@ -37,7 +37,7 @@ export interface CreateAccount {
 export interface CreateRoom {
   roomName: string;
   betMoney: number;
-  slot: number;
+  numberOfPlayers: number;
   width: number;
   height: number;
   maxNumberEachRow: number;

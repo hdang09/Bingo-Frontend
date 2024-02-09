@@ -7,13 +7,16 @@ import { environment } from '../../../environment/environment';
 import { Stomp } from '@stomp/stompjs';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { faSolidCirclePlay } from '@ng-icons/font-awesome/solid';
 
 @Component({
   selector: 'app-bingo',
   standalone: true,
-  imports: [RouterLink, TranslateModule],
+  imports: [RouterLink, TranslateModule, NgIconComponent],
   templateUrl: './bingo.component.html',
   styleUrl: './bingo.component.scss',
+  viewProviders: [provideIcons({ faSolidCirclePlay })],
 })
 export class BingoComponent {
   drawnRoute = config.routes.drawn;
@@ -55,13 +58,13 @@ export class BingoComponent {
       this.stompClient.subscribe(`/topic/call/${roomId}`, (message: any) => {
         this.drawnNumber = JSON.parse(message.body);
       });
-    });
-
-    this.stompClient.connect({}, () => {
-      const roomId = localStorage.getItem('roomId');
 
       this.stompClient.subscribe(`/topic/win/${roomId}`, (message: any) => {
         toastr.info(message.body);
+
+        setTimeout(() => {
+          this.router.navigate([config.routes.rooms]);
+        }, 5000);
       });
     });
   }

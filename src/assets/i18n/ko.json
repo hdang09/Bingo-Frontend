@@ -2,6 +2,7 @@
   "login": {
     "fullName": "성함",
     "signIn": "로그인",
+    "or": "또는",
     "loginGoogle": "Google로 로그인",
     "cannotSignIn": "로그인할 수 없음",
     "contactUs": "문의하기"

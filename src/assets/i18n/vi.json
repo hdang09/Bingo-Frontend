@@ -1,18 +1,19 @@
 {
   "login": {
     "fullName": "Tên của bạn",
-    "signIn": "Đăng nhập",
+    "signIn": "Đăng Nhập",
+    "or": "HOẶC",
     "loginGoogle": "Đăng nhập bằng Google",
     "cannotSignIn": "Không thể đăng nhập",
-    "contactUs": "Liên hệ với chúng tôi"
+    "contactUs": "Liên hệ chúng tôi"
   },
   "rooms": {
     "roomName": "Tên phòng",
-    "slot": "Người chơi",
+    "slot": "Ng.chơi",
     "bet": "Cược",
-    "busy": "Bận rộn",
-    "noAvailableRoom": "HIeej tại không có phòng",
-    "createRoom": "Tạo phòng"
+    "busy": "Phòng Đang Chơi",
+    "noAvailableRoom": "Hiện tại không có phòng",
+    "createRoom": "Tạo Phòng"
   },
   "waitingRoom": {
     "leave": "Rời khỏi",

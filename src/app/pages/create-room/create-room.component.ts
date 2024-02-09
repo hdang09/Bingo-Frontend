@@ -19,7 +19,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class CreateRoomComponent {
   roomName: string = '';
   betMoney: number = 0;
-  slot: number = 0;
+  numberOfPlayers: number = 0;
   width: number = 0;
   height: number = 0;
   maxNumberEachRow: number = 0;
@@ -40,20 +40,30 @@ export class CreateRoomComponent {
     const room = {
       roomName: this.roomName,
       betMoney: this.betMoney,
-      slot: this.slot,
+      numberOfPlayers: this.numberOfPlayers,
       width: this.width,
       height: this.height,
       maxNumberEachRow: this.maxNumberEachRow,
     };
 
+    console.log(room);
+
     this.roomService.createRoom(room).subscribe({
-      next: () => {
+      next: (response) => {
+        console.log(response);
+
         this.isLoading = false;
+
+        localStorage.setItem('roomId', response.data.roomId);
+
         this.router.navigate([config.routes.waiting]);
       },
       error: (error) => {
         this.isLoading = false;
-        this.toastr.error(error.error.message);
+
+        Object.values(error.error.data).forEach((message: any) => {
+          this.toastr.error(message);
+        });
       },
     });
   }

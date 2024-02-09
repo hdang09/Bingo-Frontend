@@ -19,6 +19,14 @@
 }
 
 form {
+  .form-2-group {
+    display: flex;
+
+    & > .form-group:first-child {
+      margin-right: 12px;
+    }
+  }
+
   .form-group {
     margin-bottom: 20px;
 
