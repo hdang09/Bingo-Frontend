@@ -57,6 +57,11 @@ export class CreateRoomComponent {
       error: (error) => {
         this.isLoading = false;
 
+        if (error.error.data === null) {
+          this.toastr.error(error.error.data);
+          return;
+        }
+
         Object.values(error.error.data).forEach((message: any) => {
           this.toastr.error(message);
         });
