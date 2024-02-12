@@ -1,6 +1,6 @@
 import { faSolidSpinner } from '@ng-icons/font-awesome/solid';
 import { RoomService } from './../../services/room/room.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import config from '../../config';
 import { Room } from '../../types';
@@ -19,7 +19,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   styleUrl: './waiting-room.component.scss',
   viewProviders: [provideIcons({ faSolidSpinner })],
 })
-export class WaitingRoomComponent implements OnInit {
+export class WaitingRoomComponent implements OnInit, OnDestroy {
   room: Room = {} as Room;
   isLoadingLeaveBtn = false;
   isLoadingStartBtn = false;
@@ -66,6 +66,12 @@ export class WaitingRoomComponent implements OnInit {
         }
       );
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.stompClient !== null) {
+      this.stompClient.disconnect();
+    }
   }
 
   leaveRoom() {

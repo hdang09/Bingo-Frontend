@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import config from '../../config';
 import { BoardService } from '../../services/board/board.service';
@@ -18,7 +18,7 @@ import { faSolidCirclePlay } from '@ng-icons/font-awesome/solid';
   styleUrl: './bingo.component.scss',
   viewProviders: [provideIcons({ faSolidCirclePlay })],
 })
-export class BingoComponent {
+export class BingoComponent implements OnDestroy {
   drawnRoute = config.routes.drawn;
   board: number[][] = [];
   drawnNumber = 0;
@@ -67,6 +67,12 @@ export class BingoComponent {
         }, 5000);
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.stompClient !== null) {
+      this.stompClient.disconnect();
+    }
   }
 
   callNumber() {

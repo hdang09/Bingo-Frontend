@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { RoomService } from '../../services/room/room.service';
 import { Room } from '../../types';
@@ -19,7 +19,7 @@ import { faSolidSpinner } from '@ng-icons/font-awesome/solid';
   styleUrl: './rooms.component.scss',
   viewProviders: [provideIcons({ faSolidSpinner })],
 })
-export class RoomsComponent implements OnInit {
+export class RoomsComponent implements OnInit, OnDestroy {
   rooms: Room[] = [];
   waitingRoute = config.routes.waiting;
   createRoute = config.routes.create;
@@ -64,5 +64,11 @@ export class RoomsComponent implements OnInit {
         this.toastr.error(error.error.message);
       },
     });
+  }
+
+  ngOnDestroy(): void {
+    if (this.stompClient !== null) {
+      this.stompClient.disconnect();
+    }
   }
 }
