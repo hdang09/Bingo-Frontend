@@ -38,12 +38,12 @@ export class CreateRoomComponent {
   createRoom() {
     this.isLoading = true;
     const room = {
-      roomName: this.roomName,
-      betMoney: this.betMoney,
-      numberOfPlayers: this.numberOfPlayers,
-      width: this.width,
-      height: this.height,
-      maxNumberEachRow: this.maxNumberEachRow,
+      roomName: this.roomName || 'Room 1',
+      betMoney: this.betMoney || 5000,
+      numberOfPlayers: this.numberOfPlayers || 10,
+      width: this.width || 7,
+      height: this.height || 9,
+      maxNumberEachRow: this.maxNumberEachRow || 4,
     };
 
     this.roomService.createRoom(room).subscribe({

@@ -7,6 +7,12 @@ table.rooms {
   font-weight: 500;
   border-radius: 100px;
 
+  tr,
+  td {
+    border-bottom: 1px solid var(--primary-color);
+    border-top: 1px solid var(--primary-color);
+  }
+
   thead {
     background-color: var(--third-color);
     color: var(--forth-color);
@@ -29,17 +35,11 @@ table.rooms {
       cursor: pointer;
       opacity: 0.8;
     }
-
-    // td {
-    //   border-top: 1px solid var(--primary-color);
-    //   border-bottom: 1px solid var(--primary-color);
-    //   border-left: 1px solid var(--white-color);
-    //   border-right: 1px solid var(--white-color);
-    // }
   }
 
   tr {
     height: 55px;
+    color: var(--black-color);
 
     &.playing-room {
       background-color: var(--fade-secondary-color);
