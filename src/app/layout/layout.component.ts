@@ -1,3 +1,4 @@
+import { jwtDecode } from 'jwt-decode';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet, ActivatedRoute } from '@angular/router';
 import { Player } from '../types';
@@ -44,9 +45,23 @@ export class LayoutComponent implements OnInit {
     // Check token in local storage
     const token = localStorage.getItem('token');
     if (token) {
-      this.router.navigate([config.routes.rooms]);
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (!decodedToken?.exp) {
+        this.router.navigate([config.routes.login]);
+        return;
+      }
+
+      if (decodedToken.exp > currentTime) {
+        this.router.navigate([config.routes.rooms]);
+      } else {
+        this.router.navigate([config.routes.login]);
+        return;
+      }
     } else {
       this.router.navigate([config.routes.login]);
+      return;
     }
 
     // Get player info

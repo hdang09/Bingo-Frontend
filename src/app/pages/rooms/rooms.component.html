@@ -15,10 +15,8 @@
       @if (room.roomId === joiningRoomId) {
       <td><ng-icon name="faSolidSpinner"></ng-icon> Joining Room ...</td>
       } @else {
-      <td>
-        <span class="roomName {{ room.status === 'PLAYING' ? 'playing' : '' }}">
-          {{ room.roomName }}
-        </span>
+      <td class="roomName">
+        {{ room.roomName }}
       </td>
       <td>{{ room.joinedPlayers }}/{{ room.maximumPlayers }}</td>
       <td>

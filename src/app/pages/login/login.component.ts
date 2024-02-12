@@ -10,6 +10,7 @@ import { CreateAccount } from '../../types';
 import { environment } from '../../../environment/environment';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -38,11 +39,24 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // Check token in local storage
     const token = localStorage.getItem('token');
-
     if (token) {
-      this.router.navigate([config.routes.rooms]);
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (!decodedToken?.exp) {
+        this.router.navigate([config.routes.login]);
+        return;
+      }
+
+      if (decodedToken.exp < currentTime) {
+        this.router.navigate([config.routes.rooms]);
+      } else {
+        this.router.navigate([config.routes.login]);
+        return;
+      }
     } else {
       this.router.navigate([config.routes.login]);
+      return;
     }
   }
 
