@@ -23,7 +23,7 @@ export class BingoComponent implements OnInit, OnDestroy {
   board: number[][] = [];
   drawnNumber = 0;
   myDrawnNumber: number[] = [];
-  stompClient: CompatClient;
+  stompClient!: CompatClient;
 
   constructor(
     private boardService: BoardService,
@@ -34,8 +34,7 @@ export class BingoComponent implements OnInit, OnDestroy {
     this.translate.addLangs(Object.keys(config.langs));
     this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
 
-    const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
-    this.stompClient = Stomp.over(() => ws);
+    this.connectWebSocket();
   }
 
   ngOnInit(): void {
@@ -53,30 +52,42 @@ export class BingoComponent implements OnInit, OnDestroy {
     this.boardService.getAllMyDrawnNumber().subscribe((response) => {
       this.myDrawnNumber = response.data;
     });
-
-    const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
-    this.stompClient = Stomp.over(() => ws);
-
-    const roomId = localStorage.getItem('roomId');
-    this.stompClient.connect({}, () => {
-      this.stompClient.subscribe(`/topic/call/${roomId}`, (message) => {
-        this.drawnNumber = JSON.parse(message.body);
-      });
-
-      this.stompClient.subscribe(`/topic/win/${roomId}`, (message) => {
-        this.toastr.info(message.body);
-
-        setTimeout(() => {
-          this.router.navigate([config.routes.rooms]);
-        }, 5000);
-      });
-    });
   }
 
   ngOnDestroy(): void {
     if (this.stompClient !== null) {
       this.stompClient.disconnect();
     }
+  }
+
+  connectWebSocket() {
+    const roomId = localStorage.getItem('roomId');
+
+    const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
+    this.stompClient = Stomp.over(() => ws);
+
+    this.stompClient.connect(
+      {},
+      () => {
+        this.stompClient.subscribe(`/topic/call/${roomId}`, (message) => {
+          this.drawnNumber = JSON.parse(message.body);
+        });
+
+        this.stompClient.subscribe(`/topic/win/${roomId}`, (message) => {
+          this.toastr.info(message.body);
+
+          setTimeout(() => {
+            this.router.navigate([config.routes.rooms]);
+          }, 5000);
+        });
+      },
+      () => {
+        console.warn(
+          'Error connecting to WebSocket server, retrying in 3 seconds...'
+        );
+        setTimeout(() => this.connectWebSocket(), 3000);
+      }
+    );
   }
 
   callNumber() {

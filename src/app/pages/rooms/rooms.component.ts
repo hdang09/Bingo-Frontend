@@ -23,7 +23,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
   rooms: Room[] = [];
   waitingRoute = config.routes.waiting;
   createRoute = config.routes.create;
-  stompClient: CompatClient;
+  stompClient!: CompatClient;
   joiningRoomId: string = '';
 
   constructor(
@@ -35,40 +35,56 @@ export class RoomsComponent implements OnInit, OnDestroy {
     this.translate.addLangs(Object.keys(config.langs));
     this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
 
-    const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
-    this.stompClient = Stomp.over(() => ws);
+    this.connectWebSocket();
   }
 
   ngOnInit() {
     this.roomService.getAllRoom().subscribe((response) => {
       this.rooms = response.data;
     });
+  }
 
-    this.stompClient.connect({}, () => {
-      this.stompClient.subscribe('/topic/rooms', (message) => {
-        const room: Room = JSON.parse(message.body);
+  ngOnDestroy(): void {
+    if (this.stompClient !== null) {
+      this.stompClient.disconnect();
+    }
+  }
 
-        const index = this.rooms.findIndex((r) => r.roomId === room.roomId);
+  connectWebSocket() {
+    const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
+    this.stompClient = Stomp.over(() => ws);
 
-        // Create room
-        console.log('Create room');
-        if (index === -1) {
-          this.rooms = [room, ...this.rooms];
-          return;
-        }
+    this.stompClient.connect(
+      {},
+      () => {
+        this.stompClient.subscribe('/topic/rooms', (message) => {
+          const room: Room = JSON.parse(message.body);
 
-        // Room is playing
-        console.log('Room is playing');
-        if (room.status === 'PLAYING') {
-          this.rooms.splice(index, 1);
-          return;
-        }
+          const index = this.rooms.findIndex((r) => r.roomId === room.roomId);
 
-        // Update room (Player is join or leave)
-        console.log('Update room');
-        this.rooms[index] = room;
-      });
-    });
+          // Create room
+          if (index === -1) {
+            this.rooms = [room, ...this.rooms];
+            return;
+          }
+
+          // Room is playing
+          if (room.status === 'PLAYING') {
+            this.rooms.splice(index, 1);
+            return;
+          }
+
+          // Update room (Player is join or leave)
+          this.rooms[index] = room;
+        });
+      },
+      () => {
+        console.warn(
+          'Error connecting to WebSocket server, retrying in 3 seconds...'
+        );
+        setTimeout(() => this.connectWebSocket(), 3000);
+      }
+    );
   }
 
   joinRoom(roomId: string) {
@@ -84,11 +100,5 @@ export class RoomsComponent implements OnInit, OnDestroy {
         this.toastr.error(error.error.message);
       },
     });
-  }
-
-  ngOnDestroy(): void {
-    if (this.stompClient !== null) {
-      this.stompClient.disconnect();
-    }
   }
 }

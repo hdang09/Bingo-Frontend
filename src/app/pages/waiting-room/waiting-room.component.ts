@@ -23,7 +23,7 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
   room: Room = {} as Room;
   isLoadingLeaveBtn = false;
   isLoadingStartBtn = false;
-  stompClient: CompatClient;
+  stompClient!: CompatClient;
 
   constructor(
     private roomService: RoomService,
@@ -34,8 +34,7 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
     this.translate.addLangs(Object.keys(config.langs));
     this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
 
-    const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
-    this.stompClient = Stomp.over(() => ws);
+    this.connectWebSocket();
   }
 
   ngOnInit() {
@@ -47,39 +46,56 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
         this.toastr.error(error.error.message);
       },
     });
-
-    const roomId = localStorage.getItem('roomId');
-
-    this.stompClient.connect({}, () => {
-      // Subscribe to player that join room
-      this.stompClient.subscribe(`/topic/players/${roomId}`, (message) => {
-        const player: Player = JSON.parse(message.body);
-
-        const index = this.room.players.findIndex(
-          (p) => p.playerId === player.playerId
-        );
-
-        if (index !== -1) {
-          this.room.players.splice(index, 1); // Player is leaving
-        } else {
-          this.room.players = [...this.room.players, player]; // Player is joining
-        }
-      });
-
-      this.stompClient.subscribe(`/topic/room-started/${roomId}`, (message) => {
-        const isStarted = JSON.parse(message.body);
-
-        if (isStarted) {
-          this.router.navigate([config.routes.bingo]);
-        }
-      });
-    });
   }
 
   ngOnDestroy(): void {
     if (this.stompClient !== null) {
       this.stompClient.disconnect();
     }
+  }
+
+  connectWebSocket() {
+    const roomId = localStorage.getItem('roomId');
+
+    const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
+    this.stompClient = Stomp.over(() => ws);
+
+    this.stompClient.connect(
+      {},
+      () => {
+        // Subscribe to player that join room
+        this.stompClient.subscribe(`/topic/players/${roomId}`, (message) => {
+          const player: Player = JSON.parse(message.body);
+
+          const index = this.room.players.findIndex(
+            (p) => p.playerId === player.playerId
+          );
+
+          if (index !== -1) {
+            this.room.players.splice(index, 1); // Player is leaving
+          } else {
+            this.room.players = [...this.room.players, player]; // Player is joining
+          }
+        });
+
+        this.stompClient.subscribe(
+          `/topic/room-started/${roomId}`,
+          (message) => {
+            const isStarted = JSON.parse(message.body);
+
+            if (isStarted) {
+              this.router.navigate([config.routes.bingo]);
+            }
+          }
+        );
+      },
+      () => {
+        console.warn(
+          'Error connecting to WebSocket server, retrying in 3 seconds...'
+        );
+        setTimeout(() => this.connectWebSocket(), 3000);
+      }
+    );
   }
 
   leaveRoom() {

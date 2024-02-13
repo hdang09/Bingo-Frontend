@@ -3,7 +3,6 @@ import { RouterLink } from '@angular/router';
 import config from '../../config';
 import { BoardService } from '../../services/board/board.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { environment } from '../../../environment/environment';
 
 @Component({
   selector: 'app-drawn',
@@ -24,7 +23,7 @@ export class DrawnComponent {
     this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
 
     this.boardService.getAllSystemDrawnNumber().subscribe((response) => {
-      this.drawnNumbers = response.data;
+      this.drawnNumbers = response.data.sort((a, b) => a - b);
     });
   }
 }
