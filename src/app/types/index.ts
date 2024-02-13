@@ -2,7 +2,7 @@ export interface Room {
   roomId: string;
   roomName: string;
   joinedPlayers: number;
-  maximumPlayers: number;
+  numberOfPlayers: number;
   betMoney: number;
   status: 'WAITING' | 'PLAYING' | 'FINISHED';
   players: Player[];

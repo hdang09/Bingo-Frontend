@@ -57,14 +57,13 @@ export class BingoComponent implements OnInit, OnDestroy {
     const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
     this.stompClient = Stomp.over(() => ws);
 
+    const roomId = localStorage.getItem('roomId');
     this.stompClient.connect({}, () => {
-      const roomId = localStorage.getItem('roomId');
-
-      this.stompClient.subscribe(`/topic/call/${roomId}`, (message: any) => {
+      this.stompClient.subscribe(`/topic/call/${roomId}`, (message) => {
         this.drawnNumber = JSON.parse(message.body);
       });
 
-      this.stompClient.subscribe(`/topic/win/${roomId}`, (message: any) => {
+      this.stompClient.subscribe(`/topic/win/${roomId}`, (message) => {
         this.toastr.info(message.body);
 
         setTimeout(() => {

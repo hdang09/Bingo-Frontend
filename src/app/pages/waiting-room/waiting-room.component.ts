@@ -48,24 +48,23 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
       },
     });
 
+    const roomId = localStorage.getItem('roomId');
+
     this.stompClient.connect({}, () => {
-      const roomId = localStorage.getItem('roomId');
-
       // Subscribe to player that join room
-      this.stompClient.subscribe(`/topic/players/join/${roomId}`, (message) => {
-        this.room.players.push(JSON.parse(message.body));
-      });
+      this.stompClient.subscribe(`/topic/players/${roomId}`, (message) => {
+        const player: Player = JSON.parse(message.body);
 
-      // Subscribe to player that leave room
-      this.stompClient.subscribe(
-        `/topic/players/leave/${roomId}`,
-        (message) => {
-          const leavePlayer: Player = JSON.parse(message.body);
-          this.room.players = this.room.players.filter(
-            (player: Player) => player.playerId !== leavePlayer.playerId
-          );
+        const index = this.room.players.findIndex(
+          (p) => p.playerId === player.playerId
+        );
+
+        if (index !== -1) {
+          this.room.players.splice(index, 1); // Player is leaving
+        } else {
+          this.room.players = [...this.room.players, player]; // Player is joining
         }
-      );
+      });
 
       this.stompClient.subscribe(`/topic/room-started/${roomId}`, (message) => {
         const isStarted = JSON.parse(message.body);

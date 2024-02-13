@@ -46,7 +46,27 @@ export class RoomsComponent implements OnInit, OnDestroy {
 
     this.stompClient.connect({}, () => {
       this.stompClient.subscribe('/topic/rooms', (message) => {
-        this.rooms = JSON.parse(message.body);
+        const room: Room = JSON.parse(message.body);
+
+        const index = this.rooms.findIndex((r) => r.roomId === room.roomId);
+
+        // Create room
+        console.log('Create room');
+        if (index === -1) {
+          this.rooms = [room, ...this.rooms];
+          return;
+        }
+
+        // Room is playing
+        console.log('Room is playing');
+        if (room.status === 'PLAYING') {
+          this.rooms.splice(index, 1);
+          return;
+        }
+
+        // Update room (Player is join or leave)
+        console.log('Update room');
+        this.rooms[index] = room;
       });
     });
   }
