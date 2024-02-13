@@ -58,7 +58,7 @@ export class CreateRoomComponent {
         this.isLoading = false;
 
         if (error.error.data === null) {
-          this.toastr.error(error.error.data);
+          this.toastr.error(error.error.message);
           return;
         }
 
