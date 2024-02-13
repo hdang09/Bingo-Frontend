@@ -3,9 +3,9 @@ import { RoomService } from './../../services/room/room.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import config from '../../config';
-import { Room } from '../../types';
+import { Player, Room } from '../../types';
 import SockJS from 'sockjs-client';
-import { Stomp } from '@stomp/stompjs';
+import { CompatClient, Stomp } from '@stomp/stompjs';
 import { environment } from '../../../environment/environment';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { ToastrService } from 'ngx-toastr';
@@ -23,7 +23,7 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
   room: Room = {} as Room;
   isLoadingLeaveBtn = false;
   isLoadingStartBtn = false;
-  stompClient: any;
+  stompClient: CompatClient;
 
   constructor(
     private roomService: RoomService,
@@ -33,6 +33,9 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
   ) {
     this.translate.addLangs(Object.keys(config.langs));
     this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
+
+    const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
+    this.stompClient = Stomp.over(() => ws);
   }
 
   ngOnInit() {
@@ -45,26 +48,32 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
       },
     });
 
-    const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
-    this.stompClient = Stomp.over(() => ws);
-
     this.stompClient.connect({}, () => {
       const roomId = localStorage.getItem('roomId');
 
-      this.stompClient.subscribe(`/topic/players/${roomId}`, (message: any) => {
-        this.room.players = JSON.parse(message.body);
+      // Subscribe to player that join room
+      this.stompClient.subscribe(`/topic/players/join/${roomId}`, (message) => {
+        this.room.players.push(JSON.parse(message.body));
       });
 
+      // Subscribe to player that leave room
       this.stompClient.subscribe(
-        `/topic/room-started/${roomId}`,
-        (message: any) => {
-          const isStarted = JSON.parse(message.body);
-
-          if (isStarted) {
-            this.router.navigate([config.routes.bingo]);
-          }
+        `/topic/players/leave/${roomId}`,
+        (message) => {
+          const leavePlayer: Player = JSON.parse(message.body);
+          this.room.players = this.room.players.filter(
+            (player: Player) => player.playerId !== leavePlayer.playerId
+          );
         }
       );
+
+      this.stompClient.subscribe(`/topic/room-started/${roomId}`, (message) => {
+        const isStarted = JSON.parse(message.body);
+
+        if (isStarted) {
+          this.router.navigate([config.routes.bingo]);
+        }
+      });
     });
   }
 

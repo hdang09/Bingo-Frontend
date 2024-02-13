@@ -1,10 +1,10 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import config from '../../config';
 import { BoardService } from '../../services/board/board.service';
 import SockJS from 'sockjs-client';
 import { environment } from '../../../environment/environment';
-import { Stomp } from '@stomp/stompjs';
+import { CompatClient, Stomp } from '@stomp/stompjs';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -18,12 +18,12 @@ import { faSolidCirclePlay } from '@ng-icons/font-awesome/solid';
   styleUrl: './bingo.component.scss',
   viewProviders: [provideIcons({ faSolidCirclePlay })],
 })
-export class BingoComponent implements OnDestroy {
+export class BingoComponent implements OnInit, OnDestroy {
   drawnRoute = config.routes.drawn;
   board: number[][] = [];
   drawnNumber = 0;
   myDrawnNumber: number[] = [];
-  stompClient: any;
+  stompClient: CompatClient;
 
   constructor(
     private boardService: BoardService,
@@ -34,6 +34,11 @@ export class BingoComponent implements OnDestroy {
     this.translate.addLangs(Object.keys(config.langs));
     this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
 
+    const ws = new SockJS(`${environment.apiUrl}/ws-bingo`);
+    this.stompClient = Stomp.over(() => ws);
+  }
+
+  ngOnInit(): void {
     this.boardService.getBoard().subscribe({
       next: (response) => {
         this.board = response.data;
@@ -60,7 +65,7 @@ export class BingoComponent implements OnDestroy {
       });
 
       this.stompClient.subscribe(`/topic/win/${roomId}`, (message: any) => {
-        toastr.info(message.body);
+        this.toastr.info(message.body);
 
         setTimeout(() => {
           this.router.navigate([config.routes.rooms]);

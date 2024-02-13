@@ -65,26 +65,37 @@ export class LayoutComponent implements OnInit {
     }
 
     // Get player info
-    this.playerService.getMyInfo().subscribe((response) => {
-      // Player not found
-      if (response.data === null) {
-        this.router.navigate([config.routes.login]);
-      }
+    this.playerService.getMyInfo().subscribe({
+      next: (response) => {
+        // Player not found
+        if (response.data === null) {
+          this.router.navigate([config.routes.login]);
+        }
 
-      this.info = response.data;
+        this.info = response.data;
 
-      // Check if user is in bingo room
-      const currentRoom = response.data.currentRoom;
+        // Check if user is in bingo room
+        const currentRoom = response.data.currentRoom;
 
-      if (currentRoom === null) return;
+        if (currentRoom === null) return;
 
-      if (currentRoom.status === 'PLAYING') {
-        this.isInBingoRoom = true;
+        if (currentRoom.status === 'PLAYING') {
+          this.isInBingoRoom = true;
 
-        this.router.navigate([config.routes.bingo]);
-      } else {
-        this.router.navigate([config.routes.waiting]);
-      }
+          this.router.navigate([config.routes.bingo]);
+        } else {
+          this.router.navigate([config.routes.waiting]);
+        }
+      },
+      error: (error) => {
+        // Player not found
+        if (error.error.data === null) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('roomId');
+          this.toastr.error(error.error.message);
+          this.router.navigate([config.routes.login]);
+        }
+      },
     });
 
     // Check if user is in bingo room
