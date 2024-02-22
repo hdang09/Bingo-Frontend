@@ -22,7 +22,8 @@ export const appConfig: ApplicationConfig = {
     }),
     importProvidersFrom(
       TranslateModule.forRoot({
-        defaultLanguage: localStorage.getItem('defaultLang') || config.langs.en,
+        defaultLanguage:
+          localStorage.getItem('defaultLang') || config.langs.english,
         loader: {
           provide: TranslateLoader,
           useFactory: createTranslateLoader,

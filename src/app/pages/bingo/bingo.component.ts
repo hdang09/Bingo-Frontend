@@ -36,7 +36,7 @@ export class BingoComponent implements OnInit, OnDestroy {
   ) {
     this.translate.addLangs(Object.keys(config.langs));
     this.translate.setDefaultLang(
-      localStorage.getItem('defaultLang') || config.langs.en
+      localStorage.getItem('defaultLang') || config.langs.english
     );
 
     this.connectWebSocket();

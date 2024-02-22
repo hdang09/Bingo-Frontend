@@ -23,8 +23,8 @@ import { jwtDecode } from 'jwt-decode';
 export class LoginComponent implements OnInit {
   fullName = '';
   isLoading = false;
-  langs = Object.keys(config.langs);
-  defaultLang = localStorage.getItem('defaultLang') || config.langs.en;
+  langs = Object.values(config.langs);
+  defaultLang = localStorage.getItem('defaultLang') || config.langs.english;
 
   constructor(
     private authService: AuthService,
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     public translate: TranslateService
   ) {
-    this.translate.addLangs(Object.keys(config.langs));
+    this.translate.addLangs(Object.values(config.langs));
     this.translate.setDefaultLang(this.defaultLang);
   }
 

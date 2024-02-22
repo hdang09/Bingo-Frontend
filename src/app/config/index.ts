@@ -10,10 +10,10 @@ const routes = {
 };
 
 const langs = {
-  en: 'English',
-  vi: 'Vietnamese',
-  ja: 'Japanese',
-  ko: 'Korean',
+  english: 'en',
+  vietnamese: 'vi',
+  japanese: 'ja',
+  korean: 'ko',
 };
 
 const config = {
