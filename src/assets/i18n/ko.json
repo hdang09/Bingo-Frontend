@@ -21,7 +21,8 @@
   },
   "drawn": {
     "allDrawnNumber": "모든 추첨된 숫자",
-    "back": "방으로 돌아가기"
+    "back": "방으로 돌아가기",
+    "noDrawnYet": "아직 추첨된 숫자가 없습니다."
   },
   "create": {
     "createRoom": "방 만들기",

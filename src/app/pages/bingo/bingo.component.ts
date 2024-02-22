@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { faSolidCirclePlay } from '@ng-icons/font-awesome/solid';
+import { PlayerService } from '../../services/player/player.service';
 
 @Component({
   selector: 'app-bingo',
@@ -24,15 +25,19 @@ export class BingoComponent implements OnInit, OnDestroy {
   drawnNumber = 0;
   myDrawnNumber: number[] = [];
   stompClient!: CompatClient;
+  playerId: string = '';
 
   constructor(
     private boardService: BoardService,
+    private playerService: PlayerService,
     private router: Router,
     private toastr: ToastrService,
     public translate: TranslateService
   ) {
     this.translate.addLangs(Object.keys(config.langs));
-    this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
+    this.translate.setDefaultLang(
+      localStorage.getItem('defaultLang') || config.langs.en
+    );
 
     this.connectWebSocket();
   }
@@ -51,6 +56,10 @@ export class BingoComponent implements OnInit, OnDestroy {
 
     this.boardService.getAllMyDrawnNumber().subscribe((response) => {
       this.myDrawnNumber = response.data;
+    });
+
+    this.playerService.getMyInfo().subscribe((response) => {
+      this.playerId = response.data.playerId;
     });
   }
 
@@ -72,6 +81,17 @@ export class BingoComponent implements OnInit, OnDestroy {
         this.stompClient.subscribe(`/topic/call/${roomId}`, (message) => {
           this.drawnNumber = JSON.parse(message.body);
         });
+
+        this.stompClient.subscribe(
+          `/topic/drawn/${this.playerId}`,
+          (message) => {
+            const drawnNumber = JSON.parse(message.body);
+
+            if (!this.myDrawnNumber.includes(drawnNumber)) {
+              this.myDrawnNumber.push(drawnNumber);
+            }
+          }
+        );
 
         this.stompClient.subscribe(`/topic/win/${roomId}`, (message) => {
           this.toastr.info(message.body);
@@ -102,9 +122,12 @@ export class BingoComponent implements OnInit, OnDestroy {
   }
 
   drawn(drawnNumber: number) {
+    // this.myRecentDrawn = drawnNumber;
     this.boardService.drawnANumber(drawnNumber).subscribe({
       next: (response) => {
-        this.myDrawnNumber.push(drawnNumber);
+        if (!this.myDrawnNumber.includes(drawnNumber)) {
+          this.myDrawnNumber.push(drawnNumber);
+        }
 
         if (response.message.includes('BINGO')) {
           this.toastr.success(response.message);

@@ -21,7 +21,8 @@
   },
   "drawn": {
     "allDrawnNumber": "すべての抽選番号",
-    "back": "部屋に戻る"
+    "back": "部屋に戻る",
+    "noDrawnYet": "まだ数字は描かれていません"
   },
   "create": {
     "createRoom": "部屋を作成",

@@ -21,7 +21,8 @@
   },
   "drawn": {
     "allDrawnNumber": "All Drawn Numbers",
-    "back": "Back to room"
+    "back": "Back to room",
+    "noDrawnYet": "No numbers have been drawn yet"
   },
   "create": {
     "createRoom": "Create Room",

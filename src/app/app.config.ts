@@ -8,6 +8,8 @@ import { provideToastr } from 'ngx-toastr';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { createTranslateLoader } from './utils/translate.loader';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import config from './config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,10 +22,16 @@ export const appConfig: ApplicationConfig = {
     }),
     importProvidersFrom(
       TranslateModule.forRoot({
+        defaultLanguage: localStorage.getItem('defaultLang') || config.langs.en,
         loader: {
           provide: TranslateLoader,
           useFactory: createTranslateLoader,
           deps: [HttpClient],
+        },
+      }),
+      NgxSkeletonLoaderModule.forRoot({
+        theme: {
+          margin: 0,
         },
       })
     ),

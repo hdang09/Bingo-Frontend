@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   fullName = '';
   isLoading = false;
   langs = Object.keys(config.langs);
-  defaultLang = localStorage.getItem('defaultLang') || 'en';
+  defaultLang = localStorage.getItem('defaultLang') || config.langs.en;
 
   constructor(
     private authService: AuthService,

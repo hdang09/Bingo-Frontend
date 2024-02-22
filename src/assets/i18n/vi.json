@@ -21,7 +21,8 @@
   },
   "drawn": {
     "allDrawnNumber": "Tất cả số đã gọi",
-    "back": "Quay lại phòng"
+    "back": "Quay lại phòng",
+    "noDrawmYet": "Chưa có số nào được gọi"
   },
   "create": {
     "createRoom": "Tạo phòng",

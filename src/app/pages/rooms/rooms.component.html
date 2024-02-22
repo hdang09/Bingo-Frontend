@@ -7,7 +7,14 @@
     </tr>
   </thead>
   <tbody>
-    @if (rooms.length > 0) { @for (room of rooms; track room.roomId) {
+    @if (loading) { @for (tempRoom of tempRooms; track tempRoom) {
+
+    <tr>
+      @for (tempRoom of tempRooms; track tempRoom) {
+      <td><ngx-skeleton-loader [theme]="{ width: '80%', top: '8px' }" /></td>
+      }
+    </tr>
+    } } @else { @for (room of rooms; track room.roomId) {
     <tr
       (click)="joinRoom(room.roomId)"
       class="{{ room.status === 'PLAYING' ? 'playing-room' : '' }}"
@@ -24,11 +31,11 @@
       </td>
       }
     </tr>
-    } } @else {
+    } @empty {
     <tr>
       <td colspan="3">{{ "rooms.noAvailableRoom" | translate }}</td>
     </tr>
-    }
+    } }
   </tbody>
 </table>
 

@@ -32,7 +32,9 @@ export class WaitingRoomComponent implements OnInit, OnDestroy {
     public translate: TranslateService
   ) {
     this.translate.addLangs(Object.keys(config.langs));
-    this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
+    this.translate.setDefaultLang(
+      localStorage.getItem('defaultLang') || config.langs.en
+    );
 
     this.connectWebSocket();
   }

@@ -2,9 +2,17 @@
   <h2>{{ "drawn.allDrawnNumber" | translate }}</h2>
 
   <div class="numbers">
-    @for (number of drawnNumbers; track number) {
+    @if (loading) {
+    <ngx-skeleton-loader
+      count="5"
+      appearance="circle"
+      [theme]="{ margin: '8px', width: '50px', height: '50px' }"
+    />
+    } @else { @for (number of drawnNumbers; track number) {
     <span class="number">{{ number }}</span>
-    }
+    } @empty {
+    <p class="no-drawn">{{ "drawn.noDrawmYet" | translate }}</p>
+    } }
   </div>
 
   <button [routerLink]="bingoRoute">{{ "drawn.back" | translate }}</button>

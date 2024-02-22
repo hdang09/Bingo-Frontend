@@ -10,21 +10,29 @@ import { ToastrService } from 'ngx-toastr';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { faSolidSpinner } from '@ng-icons/font-awesome/solid';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
-  imports: [RouterLink, TranslateModule, NgIconComponent],
+  imports: [
+    RouterLink,
+    TranslateModule,
+    NgIconComponent,
+    NgxSkeletonLoaderModule,
+  ],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.scss',
   viewProviders: [provideIcons({ faSolidSpinner })],
 })
 export class RoomsComponent implements OnInit, OnDestroy {
   rooms: Room[] = [];
+  loading: boolean = false;
   waitingRoute = config.routes.waiting;
   createRoute = config.routes.create;
   stompClient!: CompatClient;
   joiningRoomId: string = '';
+  tempRooms = Array.from({ length: 3 });
 
   constructor(
     private roomService: RoomService,
@@ -33,14 +41,18 @@ export class RoomsComponent implements OnInit, OnDestroy {
     public translate: TranslateService
   ) {
     this.translate.addLangs(Object.keys(config.langs));
-    this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
+    this.translate.setDefaultLang(
+      localStorage.getItem('defaultLang') || config.langs.en
+    );
 
     this.connectWebSocket();
   }
 
   ngOnInit() {
+    this.loading = true;
     this.roomService.getAllRoom().subscribe((response) => {
       this.rooms = response.data;
+      this.loading = false;
     });
   }
 

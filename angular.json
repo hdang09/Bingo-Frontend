@@ -61,8 +61,7 @@
               "buildTarget": "Bingo:build:development"
             }
           },
-          "defaultConfiguration": "development",
-          "options": { "port": 5173 }
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@ngx-env/builder:extract-i18n",

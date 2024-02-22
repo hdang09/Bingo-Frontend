@@ -28,7 +28,9 @@ export class LayoutComponent implements OnInit {
     public translate: TranslateService
   ) {
     this.translate.addLangs(Object.keys(config.langs));
-    this.translate.setDefaultLang(localStorage.getItem('defaultLang') || 'en');
+    this.translate.setDefaultLang(
+      localStorage.getItem('defaultLang') || config.langs.en
+    );
   }
 
   ngOnInit(): void {
